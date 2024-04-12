@@ -1,4 +1,4 @@
-import { Repository } from "../../../shared/types/Repository";
+import { Repository } from "../types/Repository";
 import { RepositoryAPI } from "../types/RepositoryAPI";
 
 export const repositoryAdapter = (repositoryAPI: RepositoryAPI): Repository => {

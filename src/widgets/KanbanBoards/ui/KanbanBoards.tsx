@@ -3,14 +3,9 @@ import { RiCalendarTodoLine } from "react-icons/ri";
 import { GrInProgress } from "react-icons/gr";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 
-import { Board } from "../../../entities/repository/ui/Board";
-import { IssueList } from "../../../entities/issue/ui/IssueList";
-import { RepositoryInfo } from "../../../entities/repository";
-import { useRepoStore } from "../model/useRepoStore";
-import { useEffect } from "react";
-import { useSearchIssues } from "../../../entities/repository/api/useSearchIssues";
-// import { DragProvider } from "../model/DragContext";
+import { Board, RepositoryInfo, useRepoStore, useSearchIssues } from "entities/repository";
 import { DndContext, rectIntersection } from '@dnd-kit/core'
+import { useEffect } from "react";
 
 export const KanbanBoards = () => {
 	const repoStore = useRepoStore()
@@ -35,7 +30,6 @@ export const KanbanBoards = () => {
 
 			{
 				repoStore.issues && (
-					// <DragProvider>
 					<DndContext
 						collisionDetection={rectIntersection}
 						onDragEnd={console.log}
@@ -50,25 +44,21 @@ export const KanbanBoards = () => {
 								colorTheme="gray"
 								Icon={RiCalendarTodoLine}
 								issues={repoStore.issues.todo}
-							// items={<IssueList issues={repoStore.issues.todo} />}
 							/>
 							<Board
 								title="In progress"
 								colorTheme="orange"
 								Icon={GrInProgress}
 								issues={repoStore.issues["in progress"]}
-							// items={<IssueList issues={repoStore.issues["in progress"]} />}
 							/>
 							<Board
 								title="Done"
 								colorTheme="green"
 								Icon={RiVerifiedBadgeFill}
 								issues={repoStore.issues.done}
-							// items={<IssueList issues={repoStore.issues.done} />}
 							/>
 						</Grid>
 					</DndContext>
-					// </DragProvider>
 				)
 			}
 		</Box>

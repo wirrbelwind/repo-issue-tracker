@@ -2,7 +2,8 @@ import { Box, Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, 
 import { useInput } from "../../../shared/hooks/useInput"
 import { useCallback, useEffect } from "react"
 import { useSearchRepository } from "../../../entities/repository/api/useSearchRepository"
-import { useRepoStore } from "../../../widgets/KanbanBoards/model/useRepoStore"
+import { useRepoStore } from "../../../entities/repository/model/store"
+import { GITHUB_REPO_URL_REG_EXP } from "../config/GITHUB_REPO_URL_REG_EXP"
 
 export const SearchRepository = () => {
 	const { input, onChange } = useInput()
@@ -22,11 +23,13 @@ export const SearchRepository = () => {
 	const onSubmit: React.FormEventHandler = useCallback(e => {
 		e.preventDefault()
 
-		const matchResult = input.match(/github\.com\/([^/]+)\/([^/]+)$/);
+		const matchResult = input.match(GITHUB_REPO_URL_REG_EXP)
+
 		if (!matchResult) {
 			setError.on()
 			return
 		}
+		
 		setError.off()
 
 		const username = matchResult[1]

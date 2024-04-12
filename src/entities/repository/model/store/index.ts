@@ -1,15 +1,15 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { GroupedIssues } from '../../../entities/repository/types/GroupedIssues'
-import { GroupedIssuesWithAppId } from '../../../entities/repository/types/GroupedIssuesWithPosition'
-import { getCachedIssues } from './getCachedIssues'
-import { getIssuesWithPositions } from './getIssuesWithPositions'
-import { Repository } from '../../../shared/types/Repository'
-import { IssueStatus } from '../../../entities/repository/types/IssueStatus'
+import { GroupedIssues } from '../../types/GroupedIssues'
+import { GroupedIssuesWithPosition } from '../../types/GroupedIssuesWithPosition'
+import { getIssuePositionsFromCache } from '../getIssuePositionsFromCache'
+import { getIssuesWithPositions } from '../getIssuesWithPositions'
+import { Repository } from '../../types/Repository'
+import { IssueStatus } from '../../types/IssueStatus'
 
 interface State {
 	repo: Repository | null
-	issues: GroupedIssuesWithAppId | null
+	issues: GroupedIssuesWithPosition | null
 }
 
 interface Actions {
@@ -34,7 +34,7 @@ export const useRepoStore = create<State & Actions>()(
 					throw new Error('Repo is null')
 				}
 
-				const cachedIssues = getCachedIssues(state.repo.id)
+				const cachedIssues = getIssuePositionsFromCache(state.repo.id)
 
 				state.issues = {
 					"in progress": getIssuesWithPositions(issues['in progress'], cachedIssues, "in progress"),

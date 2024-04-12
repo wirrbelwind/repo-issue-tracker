@@ -1,7 +1,7 @@
 import { Avatar, HStack, Link, Text } from "@chakra-ui/react"
 import { IoIosArrowForward } from "react-icons/io"
 import { FaStar } from "react-icons/fa";
-import { Repository } from '../../../shared/types/Repository'
+import { Repository } from '../types/Repository'
 
 interface RepositoryInfoProps {
 	repo: Repository
