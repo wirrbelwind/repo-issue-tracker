@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { Octokit } from 'octokit'
-import { repositoryAdapter } from './adapter'
+import { repositoryAdapter } from './repositoryAdapter'
 
 export const useSearchRepository = () => {
 	const octokit = new Octokit({

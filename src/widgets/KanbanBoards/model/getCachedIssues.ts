@@ -1,10 +1,10 @@
-import { IssuesCache } from "../types/IssuesCache"
+import { IssuesCache } from "../../../entities/repository/types/IssuesCache"
 
 export const getCachedIssues = (repositoryId: number) => {
 	// const cachedData = cacheAdapter.getItem(repositoryId.toString())
 	const cachedData = localStorage.getItem(repositoryId.toString())
 
-	if(!cachedData) {
+	if (!cachedData) {
 		return null
 	}
 

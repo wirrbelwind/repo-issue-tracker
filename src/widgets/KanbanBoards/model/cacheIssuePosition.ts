@@ -1,6 +1,6 @@
-import { Issue } from "../../../entities/issue/types/Issue"
+import { Issue } from "../../../entities/repository/types/Issue"
 import { Repository } from "../../../shared/types/Repository"
-import { IssuesCache } from "../types/IssuesCache"
+import { IssuesCache } from "../../../entities/repository/types/IssuesCache"
 import { getCachedIssues } from "./getCachedIssues"
 
 export const cacheIssuePosition = (repositoryId: Repository['id'], issueId: Issue['id'], position: number) => {

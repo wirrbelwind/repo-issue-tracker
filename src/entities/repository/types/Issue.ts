@@ -1,7 +1,6 @@
 import { IssueStatus } from "./IssueStatus"
 
 export interface Issue {
-	// id: number
 	github_id: number
 	URL: string
 	state: IssueStatus

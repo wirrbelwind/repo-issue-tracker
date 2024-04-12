@@ -1,7 +1,7 @@
-import { Issue } from "../../../entities/issue/types/Issue";
-import { IssueStatus } from "../../../entities/issue/types/IssueStatus";
-import { IssueWithPosition } from "../types/IssueWithPosition";
-import { IssuesCache } from "../types/IssuesCache";
+import { Issue } from "../../../entities/repository/types/Issue";
+import { IssueStatus } from "../../../entities/repository/types/IssueStatus";
+import { IssueWithPosition } from "../../../entities/repository/types/IssueWithPosition";
+import { IssuesCache } from "../../../entities/repository/types/IssuesCache";
 
 export const getIssuesWithPositions = (issueList: Issue[], cachedIssues: IssuesCache | null, groupName: IssueStatus): IssueWithPosition[] => {
 

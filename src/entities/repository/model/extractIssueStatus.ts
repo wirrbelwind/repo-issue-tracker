@@ -1,7 +1,7 @@
 import { IssueAPI } from "../types/IssueAPI";
 import { IssueStatus } from "../types/IssueStatus";
 
-export const getStatusIssueAPI = (issueAPI: IssueAPI): IssueStatus => {
+export const extractIssueStatus = (issueAPI: IssueAPI): IssueStatus => {
 	if (issueAPI.state === 'open') {
 		if (issueAPI.assignee) {
 			return 'in progress'

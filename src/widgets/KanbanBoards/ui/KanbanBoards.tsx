@@ -3,18 +3,18 @@ import { RiCalendarTodoLine } from "react-icons/ri";
 import { GrInProgress } from "react-icons/gr";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 
-import { Board } from "../../../shared/ui/Board";
+import { Board } from "../../../entities/repository/ui/Board";
 import { IssueList } from "../../../entities/issue/ui/IssueList";
 import { RepositoryInfo } from "../../../entities/repository";
 import { useRepoStore } from "../model/useRepoStore";
 import { useEffect } from "react";
-import { useSearchIssues } from "../../../entities/issue/api/useSearchIssues";
+import { useSearchIssues } from "../../../entities/repository/api/useSearchIssues";
 // import { DragProvider } from "../model/DragContext";
 import { DndContext, rectIntersection } from '@dnd-kit/core'
 
 export const KanbanBoards = () => {
 	const repoStore = useRepoStore()
-	const issuesQuery = useSearchIssues(repoStore.repo)
+	const issuesQuery = useSearchIssues(repoStore.repo ? { ownerName: repoStore.repo.ownerName, repositoryName: repoStore.repo.name } : null)
 
 	useEffect(() => {
 
@@ -50,21 +50,21 @@ export const KanbanBoards = () => {
 								colorTheme="gray"
 								Icon={RiCalendarTodoLine}
 								issues={repoStore.issues.todo}
-								// items={<IssueList issues={repoStore.issues.todo} />}
+							// items={<IssueList issues={repoStore.issues.todo} />}
 							/>
 							<Board
 								title="In progress"
 								colorTheme="orange"
 								Icon={GrInProgress}
-									issues={repoStore.issues["in progress"]}
-								// items={<IssueList issues={repoStore.issues["in progress"]} />}
+								issues={repoStore.issues["in progress"]}
+							// items={<IssueList issues={repoStore.issues["in progress"]} />}
 							/>
 							<Board
 								title="Done"
 								colorTheme="green"
 								Icon={RiVerifiedBadgeFill}
-									issues={repoStore.issues.done}
-								// items={<IssueList issues={repoStore.issues.done} />}
+								issues={repoStore.issues.done}
+							// items={<IssueList issues={repoStore.issues.done} />}
 							/>
 						</Grid>
 					</DndContext>

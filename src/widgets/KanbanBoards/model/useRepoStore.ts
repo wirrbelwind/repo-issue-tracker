@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { GroupedIssues } from '../../../entities/issue/types/GroupedIssues'
-import { GroupedIssuesWithAppId } from '../types/GroupedIssuesWithAppId'
+import { GroupedIssues } from '../../../entities/repository/types/GroupedIssues'
+import { GroupedIssuesWithAppId } from '../../../entities/repository/types/GroupedIssuesWithPosition'
 import { getCachedIssues } from './getCachedIssues'
 import { getIssuesWithPositions } from './getIssuesWithPositions'
 import { Repository } from '../../../shared/types/Repository'
-import { IssueStatus } from '../../../entities/issue/types/IssueStatus'
+import { IssueStatus } from '../../../entities/repository/types/IssueStatus'
 
 interface State {
 	repo: Repository | null

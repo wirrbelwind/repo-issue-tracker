@@ -1,13 +1,12 @@
 import { Box, BoxProps, Divider, HStack, Text, VStack } from "@chakra-ui/react"
 import { IconType } from "react-icons"
-import { IssueWithPosition } from "../../widgets/KanbanBoards/types/IssueWithPosition"
-import { IssueCard } from "../../entities/issue/ui/IssueCard"
+import { IssueWithPosition } from "../types/IssueWithPosition"
+import { IssueCard } from "./IssueCard"
 import { useDroppable } from '@dnd-kit/core'
 
 interface BoardProps extends BoxProps {
 	title: string
 	Icon?: IconType
-	// items?: React.ReactNode
 	colorTheme?: string
 	issues: IssueWithPosition[]
 }
@@ -15,7 +14,6 @@ interface BoardProps extends BoxProps {
 export const Board = ({
 	title,
 	Icon,
-	// items,
 	issues,
 	colorTheme,
 	...styleProps
