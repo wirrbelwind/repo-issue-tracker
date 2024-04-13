@@ -3,9 +3,10 @@ import { IconType } from "react-icons"
 import { IssueWithPosition } from "../types/IssueWithPosition"
 import { IssueCard } from "./IssueCard"
 import { useDroppable } from '@dnd-kit/core'
+import { IssueStatus } from "../types/IssueStatus"
 
 interface BoardProps extends BoxProps {
-	title: string
+	title: IssueStatus
 	Icon?: IconType
 	colorTheme?: string
 	issues: IssueWithPosition[]
@@ -18,7 +19,7 @@ export const Board = ({
 	colorTheme,
 	...styleProps
 }: BoardProps) => {
-	const { setNodeRef } = useDroppable({
+	const { setNodeRef, isOver } = useDroppable({
 		id: title,
 		data: {
 			type: "Board"
@@ -30,6 +31,7 @@ export const Board = ({
 			border={`1px solid ${colorTheme}`}
 			flexGrow={1}
 			flexShrink={0}
+			borderColor={isOver ? "pink" : "black"}
 			{...styleProps}
 		>
 			<HStack
@@ -50,11 +52,11 @@ export const Board = ({
 			<VStack
 				gap="1rem"
 				align="stretch"
+				h="100%"
 				ref={setNodeRef}
 			>
 				{
-					issues
-						.slice()
+					issues.slice()
 						.sort((a, b) => {
 							if (a.position.order < b.position.order) {
 								return -1
@@ -63,9 +65,9 @@ export const Board = ({
 								return 1
 							}
 							return 0
-						})
-						.map(issue => (
+						}).map(issue => (
 							<IssueCard
+								position={issue.position.order}
 								parent={title}
 								id={issue.github_id}
 								key={issue.github_id}

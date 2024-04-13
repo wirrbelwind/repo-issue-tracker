@@ -1,10 +1,10 @@
-import { Card, CardBody, CardFooter, CardHeader, Link } from "@chakra-ui/react"
+import { Card, CardBody, CardFooter, CardHeader, Fade, Flex, Link } from "@chakra-ui/react"
 import { formatDistance } from 'date-fns'
 // import { useDrag } from "../../../widgets/KanbanBoards/model/DragContext"
 // import { useRepoStore } from "../../../widgets/KanbanBoards/model/useRepoStore"
-import { useDraggable , useDroppable} from "@dnd-kit/core";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
-
+import { IoMdArrowRoundUp } from "react-icons/io";
 interface IssueCardProps {
 	id: number
 	URL: string
@@ -14,6 +14,7 @@ interface IssueCardProps {
 	commentsQuantity: number
 	serialNumber: number
 	parent: string
+	position: number
 }
 
 export const IssueCard = ({
@@ -24,10 +25,9 @@ export const IssueCard = ({
 	id,
 	serialNumber,
 	title,
-	parent
+	parent,
+	position
 }: IssueCardProps) => {
-	// const drag = useDrag()
-	// const repoStore = useRepoStore()
 	const drop = useDroppable({
 		id: id,
 		data: {
@@ -35,62 +35,37 @@ export const IssueCard = ({
 			parent
 		}
 	})
-	
+
 	const drag = useDraggable({
 		id: id,
 		data: {
-			// index,
 			parent
 		}
 	})
-	// attributes,
-	// listeners,
-	// setNodeRef,
-	// transform
-
 
 	return (
 		<Card
 			border="1px dashed"
 			cursor="grab"
-			// draggable
 			{...drag.listeners}
 			{...drag.attributes}
 			ref={drag.isDragging ? drag.setNodeRef : drop.setNodeRef}
 			transform={CSS.Translate.toString(drag.transform)}
-			bg={drop.isOver ? "red" : "white"}
-		// bg={drag?.issueId === id ? "cyan" : "white"}
-		// onDragStart={() => drag?.setIssueId(id)}
-		// onDrop={e => {
-		// 	e.preventDefault()
-		// 	console.log('drop', id)
-		// 	if(!drag?.issueId) {
-		// 		return
-		// 	}
-		// 	if(drag.issueId === id) {
-		// 		return
-		// 	}
-
-		// 	repoStore.setIssuePosition(
-		// 		drag.issueId,
-		// 		id,
-		// 		"todo",
-		// 		"todo"
-		// 	)
-		// }}
-		// onDragOver={e => {
-		// 	e.preventDefault()
-		// 	// console.log('over', id)
-		// }}
-		// onDragEnd={() => drag?.setIssueId(null)}
+			borderColor={drop.isOver ? "pink" : "black"}
+			borderWidth="3px"
 		>
-			<CardHeader>
-				<Link href={URL} isExternal>{title}</Link>
-			</CardHeader>
+			{position}
+			<Fade in={drop.isOver}>
+				<Flex justifyContent="center">
+					<IoMdArrowRoundUp size="2rem" />
+				</Flex>
+			</Fade>
 
-			<CardBody>
-				{`#${serialNumber} ${title} opened ${formatDistance(createdAt, Date.now())} ago`}
-			</CardBody>
+			<CardHeader>
+				<Link href={URL} fontWeight="bold">
+					{`#${serialNumber} ${title} opened ${formatDistance(createdAt, Date.now())} ago`}
+				</Link>
+			</CardHeader>
 
 			<CardFooter>{`${authorName} | Comments: ${commentsQuantity}`}</CardFooter>
 		</Card>
