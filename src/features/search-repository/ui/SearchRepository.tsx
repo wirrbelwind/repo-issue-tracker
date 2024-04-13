@@ -1,8 +1,7 @@
 import { Box, Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, HStack, Input, useBoolean } from "@chakra-ui/react"
-import { useInput } from "../../../shared/hooks/useInput"
+import { useInput } from "shared/hooks/useInput"
 import { useCallback, useEffect } from "react"
-import { useSearchRepository } from "../../../entities/repository/api/useSearchRepository"
-import { useRepoStore } from "../../../entities/repository/model/store"
+import { useRepoStore, useSearchRepository } from "entities/repository"
 import { GITHUB_REPO_URL_REG_EXP } from "../config/GITHUB_REPO_URL_REG_EXP"
 
 export const SearchRepository = () => {
@@ -29,7 +28,7 @@ export const SearchRepository = () => {
 			setError.on()
 			return
 		}
-		
+
 		setError.off()
 
 		const username = matchResult[1]

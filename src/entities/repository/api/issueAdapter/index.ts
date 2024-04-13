@@ -1,6 +1,6 @@
-import { Issue } from "../types/Issue";
-import { IssueAPI } from "../types/IssueAPI";
-import { extractIssueStatus } from "../model/extractIssueStatus";
+import { Issue } from "../../types/Issue";
+import { IssueAPI } from "../../types/IssueAPI";
+import { extractIssueStatus } from "../../model/extractIssueStatus";
 
 export const issueAdapter = (issueAPI: IssueAPI): Issue => {
 	return {

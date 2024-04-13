@@ -1,20 +1,15 @@
 import { Octokit } from "octokit";
 import { IssuesSearchParams } from "../types/IssuesSearchParams";
-import { getIssueRequestOptions } from "../config/getIssueRequestOptions";
-import { GroupedIssues } from "../types/GroupedIssues";
 import { issueAdapter } from "./issueAdapter";
 import { IssueAPI } from "../types/IssueAPI";
-import { groupApiIssuesByStatus } from "./groupApiIssuesByStatus";
-import { Issue } from "../types/Issue";
+import { getIssueRequestOptions } from "../config/getIssueRequestOptions";
 
 export const fetchIssues = async (
 	octokitClient: Octokit,
-	{ ownerName, repositoryName }: IssuesSearchParams
+	{ repositoryName, ownerName }: IssuesSearchParams
 ) => {
 
-	const response = await octokitClient.request<IssueAPI[]>(`GET /repos/${ownerName}/${repositoryName}/issues`)
-	// const groupedIssues = groupApiIssuesByStatus(response.data)
+	const response = await octokitClient.request<IssueAPI[]>(getIssueRequestOptions(repositoryName, ownerName))
 
-	// return groupedIssues
 	return response.data.map(issueAdapter)
 }

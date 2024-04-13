@@ -1,5 +1,5 @@
-import { Repository } from "../types/Repository";
-import { RepositoryAPI } from "../types/RepositoryAPI";
+import { Repository } from "../../types/Repository";
+import { RepositoryAPI } from "../../types/RepositoryAPI";
 
 export const repositoryAdapter = (repositoryAPI: RepositoryAPI): Repository => {
 	return {

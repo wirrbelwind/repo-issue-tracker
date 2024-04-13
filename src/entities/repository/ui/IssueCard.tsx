@@ -1,10 +1,9 @@
-import { Card, CardBody, CardFooter, CardHeader, Fade, Flex, Link } from "@chakra-ui/react"
+import { Card, CardFooter, CardHeader, Fade, Flex, Link } from "@chakra-ui/react"
 import { formatDistance } from 'date-fns'
-// import { useDrag } from "../../../widgets/KanbanBoards/model/DragContext"
-// import { useRepoStore } from "../../../widgets/KanbanBoards/model/useRepoStore"
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { IoMdArrowRoundUp } from "react-icons/io";
+
 interface IssueCardProps {
 	id: number
 	URL: string

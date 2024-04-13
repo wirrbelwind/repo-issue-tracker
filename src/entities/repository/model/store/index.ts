@@ -1,13 +1,12 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { GroupedIssues } from '../../types/GroupedIssues'
 import { GroupedIssuesWithPosition } from '../../types/GroupedIssuesWithPosition'
 import { getIssuePositionsFromCache } from '../getIssuePositionsFromCache'
-import { getIssuesWithPositions } from '../getIssuesWithPositions'
 import { Repository } from '../../types/Repository'
 import { IssueStatus } from '../../types/IssueStatus'
-import { cacheIssuePosition } from '../cacheIssuePosition'
-import { Issue, IssueWithPosition } from 'entities/repository'
+import { Issue } from '../../types/Issue'
+import { IssueWithPosition } from '../../types/IssueWithPosition'
+import { cacheBoard } from '../cacheBoard'
 
 interface State {
 	repo: Repository | null
@@ -87,13 +86,6 @@ export const useRepoStore = create<State & Actions>()(
 						position: state.issues[issue.state].length
 					})
 				})
-				// }
-
-				// state.issues = {
-				// 	"in progress": getIssuesWithPositions(issues['in progress'], cachedIssues, "in progress"),
-				// 	"done": getIssuesWithPositions(issues['done'], cachedIssues, "done"),
-				// 	"todo": getIssuesWithPositions(issues['todo'], cachedIssues, 'todo')
-				// }
 			})
 		},
 		setIssuePosition: ({
@@ -111,58 +103,48 @@ export const useRepoStore = create<State & Actions>()(
 					throw new Error(`Issues is null`)
 				}
 
-				const masterIssueIndex = state.issues[activeBoard].findIndex(issue => issue.github_id === activeIssueId)
-				const masterIssue = state.issues[activeBoard][masterIssueIndex]
+				// extract active and target issues from state
+				const activeIssueIndex = state.issues[activeBoard].findIndex(issue => issue.github_id === activeIssueId)
+				const activeIssue = state.issues[activeBoard][activeIssueIndex]
 
-				const slaveIssueIndex = state.issues[activeBoard].findIndex(issue => issue.github_id === targetIssueId)
-				const slaveIssue = state.issues[targetBoard][slaveIssueIndex]
+				const targetIssueIndex = state.issues[targetBoard].findIndex(issue => issue.github_id === targetIssueId)
+				const targetIssue = state.issues[targetBoard][targetIssueIndex]
 
-				if (slaveIssue) {
-					masterIssue.position = slaveIssue.position
-					slaveIssue.position++
+				// if action got target issue, then set active issue above the target issue
+				if (targetIssue) {
+					activeIssue.position = targetIssue.position
+					targetIssue.position++
 				}
+				// if actiong didn't got target issue, then just add active issue to board
 				else {
 					const lastIssueInBoard = state.issues[targetBoard][state.issues[targetBoard].length - 1]
 
 					if (lastIssueInBoard) {
-						masterIssue.position = lastIssueInBoard.position + 1
+						activeIssue.position = lastIssueInBoard.position + 1
 
 					}
 					else {
-						masterIssue.position = 1
+						activeIssue.position = 1
 					}
-					state.issues[targetBoard].push(masterIssue)
+					state.issues[targetBoard].push(activeIssue)
 				}
 
-				state.issues[activeBoard].splice(masterIssueIndex, 1)
+				// delete issue from current location
+				state.issues[activeBoard].splice(activeIssueIndex, 1)
 
-
-				if (slaveIssue) {
-					state.issues[targetBoard].splice(slaveIssueIndex + 1, 0, masterIssue)
+				// add active issue to new location
+				if (targetIssue) {
+					state.issues[targetBoard].splice(targetIssueIndex + 1, 0, activeIssue)
 				}
 
+				// cache target board
+				cacheBoard(state.issues[targetBoard], state.repo.id, targetBoard)
 
-				state.issues[activeBoard].forEach(issue => {
-					cacheIssuePosition(state.repo.id,issue.github_id, issue.position, activeBoard)
-				})
-
-				state.issues[targetBoard].forEach(issue => {
-					cacheIssuePosition(state.repo.id,issue.github_id, issue.position, targetBoard)
-				})
-				// sort all issues after changing boards
-				// state.issues[targetBoard].sort((a, b) => {
-				// 	if (a.position < b.position) {
-				// 		return -1
-				// 	}
-				// 	if (a.position > b.position) {
-				// 		return 1
-				// 	}
-				// 	return 0
-				// })
-
-
+				// if issue moved from one board to another, then cache initial board
+				if (activeBoard !== targetBoard) {
+					cacheBoard(state.issues[activeBoard], state.repo.id, activeBoard)
+				}
 			})
-
 		}
 	}))
 )
