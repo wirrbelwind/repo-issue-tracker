@@ -47,17 +47,17 @@ export const Board = ({
         {issues
           .slice()
           .sort((a, b) => {
-            if (a.position.order < b.position.order) {
+            if (a.position < b.position) {
               return -1;
             }
-            if (a.position.order > b.position.order) {
+            if (a.position > b.position) {
               return 1;
             }
             return 0;
           })
           .map((issue) => (
             <IssueCard
-              position={issue.position.order}
+              position={issue.position}
               parent={title}
               id={issue.github_id}
               key={issue.github_id}

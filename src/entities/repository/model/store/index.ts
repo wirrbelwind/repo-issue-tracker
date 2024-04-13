@@ -41,12 +41,12 @@ export const useRepoStore = create<State & Actions>()(
           throw new Error("Repo is null");
         }
 
+        if (!state.issues) {
+          throw new Error(`Issues is null`);
+        }
+
         const cachedIssues = getIssuePositionsFromCache(state.repo.id);
 
-        // if (cachedIssues && state.issues) {
-        // Object.entries(cachedIssues).map(([issueId, { group, order }]) => {
-
-        // })
         const handledIssues = issues.reduce<{
           cached: GroupedIssuesWithPosition;
           notCached: Issue[];
@@ -85,8 +85,10 @@ export const useRepoStore = create<State & Actions>()(
         state.issues = handledIssues.cached;
 
         handledIssues.notCached.forEach((issue) => {
+          // @ts-expect-error Bug: zustand doesn't understand type of state.issues
           state.issues[issue.state].push({
             ...issue,
+            // @ts-expect-error Bug: zustand doesn't understand type of state.issues
             position: state.issues[issue.state].length,
           });
         });

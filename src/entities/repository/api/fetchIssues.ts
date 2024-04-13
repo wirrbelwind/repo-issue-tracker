@@ -9,6 +9,7 @@ export const fetchIssues = async (
   { repositoryName, ownerName }: IssuesSearchParams,
 ) => {
   const response = await octokitClient.request<IssueAPI[]>(
+    // @ts-ignore Octokit library cant understand types of args right
     getIssueRequestOptions(repositoryName, ownerName),
   );
 

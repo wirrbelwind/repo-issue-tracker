@@ -1,4 +1,4 @@
-import { describe, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { repositoryAdapter } from ".";
 import { RepositoryAPI } from "../../types/RepositoryAPI";
 import { Repository } from "../../types/Repository";
@@ -136,5 +136,7 @@ describe("repositoryAdapter", () => {
       ownerAvatarURL: "https://avatars.githubusercontent.com/u/241138?v=4",
       starsQuantity: 14094,
     };
+
+    expect(repositoryAdapter(input)).toStrictEqual(output)
   });
 });

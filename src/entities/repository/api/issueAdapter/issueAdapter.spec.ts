@@ -77,7 +77,8 @@ const issueApi = {
     "https://api.github.com/repos/karpathy/llm.c/issues/111/timeline",
   performed_via_github_app: null,
   state_reason: null,
-};
+
+}
 
 describe("issueAdapter", () => {
   it("Should return a valid object (type Issue)", () => {
@@ -93,6 +94,7 @@ describe("issueAdapter", () => {
       URL: "https://github.com/karpathy/llm.c/pull/111",
     };
 
-    expect(issueAdapter(issueApi)).toStrictEqual(output);
+    // @ts-ignore IssueAPI type don't have every field, but only required for the project
+    expect(issueAdapter(input as IssueAPI)).toStrictEqual(output);
   });
 });
