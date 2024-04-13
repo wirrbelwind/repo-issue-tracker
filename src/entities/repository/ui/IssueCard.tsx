@@ -20,7 +20,6 @@ interface IssueCardProps {
   commentsQuantity: number;
   serialNumber: number;
   parent: string;
-  position: number;
 }
 
 export const IssueCard = ({
@@ -32,7 +31,6 @@ export const IssueCard = ({
   serialNumber,
   title,
   parent,
-  position,
 }: IssueCardProps) => {
   const drop = useDroppable({
     id: id,

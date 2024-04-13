@@ -57,7 +57,6 @@ export const Board = ({
           })
           .map((issue) => (
             <IssueCard
-              position={issue.position}
               parent={title}
               id={issue.github_id}
               key={issue.github_id}
