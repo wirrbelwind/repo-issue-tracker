@@ -1,4 +1,4 @@
 export interface RepositorySearchParams {
-	username: string
-	repositoryName: string
+  username: string;
+  repositoryName: string;
 }

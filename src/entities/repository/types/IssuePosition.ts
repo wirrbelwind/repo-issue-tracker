@@ -1,6 +1,6 @@
-import { IssueStatus } from "./IssueStatus"
+import { IssueStatus } from "./IssueStatus";
 
 export interface IssuePosition {
-	group: IssueStatus
-	order: number
+  group: IssueStatus;
+  order: number;
 }

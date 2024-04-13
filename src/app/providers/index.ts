@@ -1,2 +1,2 @@
-export { GlobalProvider } from './GlobalProvider'
-export { allProviders } from './allProviders'
+export { GlobalProvider } from "./GlobalProvider";
+export { allProviders } from "./allProviders";

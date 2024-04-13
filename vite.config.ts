@@ -1,11 +1,11 @@
-import react from '@vitejs/plugin-react-swc'
-import { defineConfig } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [react(),tsconfigPaths()],
+  plugins: [react(), tsconfigPaths()],
   test: {
-    environment: 'jsdom',
-    global: true
+    environment: "jsdom",
+    global: true,
   },
-})
+});

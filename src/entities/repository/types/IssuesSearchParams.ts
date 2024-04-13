@@ -1,4 +1,4 @@
 export interface IssuesSearchParams {
-	repositoryName: string
-	ownerName: string
+  repositoryName: string;
+  ownerName: string;
 }

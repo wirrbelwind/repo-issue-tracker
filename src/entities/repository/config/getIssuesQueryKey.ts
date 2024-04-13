@@ -1,1 +1,2 @@
-export const getIssuesQueryKey = (repoName: string) => `search-issues-${repoName}`
+export const getIssuesQueryKey = (repoName: string) =>
+  `search-issues-${repoName}`;

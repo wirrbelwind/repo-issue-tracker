@@ -1,1 +1,1 @@
-export { SearchRepository } from './ui/SearchRepository'
+export { SearchRepository } from "./ui/SearchRepository";

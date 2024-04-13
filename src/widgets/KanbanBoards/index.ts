@@ -1,1 +1,1 @@
-export { KanbanBoards } from './ui/KanbanBoards'
+export { KanbanBoards } from "./ui/KanbanBoards";

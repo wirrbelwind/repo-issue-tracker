@@ -1,26 +1,25 @@
-import { PropsWithChildren } from 'react'
-import { AppProvider } from './AppProvider'
+import { PropsWithChildren } from "react";
+import { AppProvider } from "./AppProvider";
 
 interface GeneralProviderProps extends PropsWithChildren {
-	providers: AppProvider[]
+  providers: AppProvider[];
 }
 
-export const GlobalProvider = ({ children, providers }: GeneralProviderProps) => {
-	if (providers.length === 1) {
-		const [LastProvider] = providers
+export const GlobalProvider = ({
+  children,
+  providers,
+}: GeneralProviderProps) => {
+  if (providers.length === 1) {
+    const [LastProvider] = providers;
 
-		return (
-			<LastProvider>
-				{children}
-			</LastProvider>
-		)
-	}
+    return <LastProvider>{children}</LastProvider>;
+  }
 
-	const [Provider] = providers
+  const [Provider] = providers;
 
-	return (
-		<GlobalProvider providers={providers.slice(1)}>
-			<Provider>{children}</Provider>
-		</GlobalProvider>
-	)
-}
+  return (
+    <GlobalProvider providers={providers.slice(1)}>
+      <Provider>{children}</Provider>
+    </GlobalProvider>
+  );
+};
