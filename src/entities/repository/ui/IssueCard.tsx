@@ -64,7 +64,6 @@ export const IssueCard = ({
       borderColor={drop.isOver ? "pink" : "black"}
       borderWidth="3px"
     >
-      {position}
       <Fade in={drop.isOver}>
         <Flex justifyContent="center">
           <IoMdArrowRoundUp size="2rem" />
