@@ -41,10 +41,6 @@ export const useRepoStore = create<State & Actions>()(
           throw new Error("Repo is null");
         }
 
-        // if (!state.issues) {
-        //   throw new Error(`Issues is null`);
-        // }
-
         const cachedIssues = getIssuePositionsFromCache(state.repo.id);
 
         const handledIssues = issues.reduce<{
